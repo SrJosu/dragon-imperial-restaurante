@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon Imperial - Cocina China Autentica en Elche</title>
+<meta name="description" content="Restaurante chino Dragon Imperial en Elche desde 1998. Cocina tradicional de Shanghai y Canton. Reservas online. Menu del dia. Para llevar.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;overflow-x:hidden}
+:root{--rojo:#dc143c;--naranja:#ff4500;--dorado:#ffd700;--oscuro:#1a1a1a;--gris:#f8f9fa}
+html{scroll-behavior:smooth}
+/* HEADER */
+header{background:linear-gradient(135deg,var(--rojo),var(--naranja));color:white;padding:1rem 0;position:fixed;width:100%;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.2)}
+nav{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 2rem}
+.nav-logo{font-size:1.8rem;font-weight:bold;display:flex;align-items:center;gap:0.5rem}
+.nav-logo i{color:var(--dorado)}
+nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
+nav a{color:white;text-decoration:none;font-weight:600;transition:color 0.3s;font-size:0.95rem}
+nav a:hover{color:var(--dorado)}
+.hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px}
+.hamburger span{width:25px;height:3px;background:white;border-radius:3px;transition:0.3s}
+/* BANNER TOP */
+.banner-top{background:var(--oscuro);color:var(--dorado);text-align:center;padding:0.5rem;font-size:0.85rem;position:fixed;width:100%;top:0;z-index:1001}
+/* HERO */
+.hero{background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1563245372-f21724e3856d?w=1600&q=80') center/cover no-repeat;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:white;padding-top:120px}
+.hero h1{font-size:3.5rem;margin-bottom:1rem;text-shadow:2px 2px 4px rgba(0,0,0,0.7);animation:fadeInDown 1s ease}
+.hero p{font-size:1.3rem;margin-bottom:2rem;text-shadow:1px 1px 3px rgba(0,0,0,0.7);animation:fadeInUp 1s ease 0.3s both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeInUp 1s ease 0.6s both}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.btn{background:var(--naranja);color:white;padding:0.9rem 2rem;text-decoration:none;border-radius:50px;font-weight:bold;transition:transform 0.3s,box-shadow 0.3s;display:inline-block;border:none;cursor:pointer;font-size:1rem}
+.btn:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+.btn-outline{background:transparent;border:2px solid white;color:white}
+.btn-outline:hover{background:white;color:var(--rojo)}
+/* ESTADISTICAS */
+.stats{background:linear-gradient(135deg,var(--rojo),var(--naranja));color:white;padding:4rem 2rem;text-align:center}
+.stats-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
+.stat-item h3{font-size:3rem;font-weight:bold;color:var(--dorado)}
+.stat-item p{font-size:1.1rem;opacity:0.9}
+/* SECCIONES */
+section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
+section.full-width{max-width:none;padding:5rem 2rem}
+h2.section-title{text-align:center;font-size:2.5rem;margin-bottom:0.5rem;color:var(--rojo)}
+.section-subtitle{text-align:center;color:#666;margin-bottom:3rem;font-size:1.1rem}
+/* NOSOTROS */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.about-img{border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.15)}
+.about-img img{width:100%;height:400px;object-fit:cover}
+.about-text h3{font-size:1.8rem;color:var(--rojo);margin-bottom:1rem}
+.about-text p{margin-bottom:1rem;color:#555}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.feature-item{display:flex;align-items:center;gap:0.7rem;padding:0.8rem;background:var(--gris);border-radius:8px}
+.feature-item i{color:var(--naranja);font-size:1.2rem}
+/* MENU DEL DIA */
+.menu-dia{background:linear-gradient(135deg,#1a1a1a,#2d2d2d);color:white;border-radius:20px;padding:2.5rem;max-width:800px;margin:0 auto 3rem}
+.menu-dia h3{color:var(--dorado);font-size:1.8rem;text-align:center;margin-bottom:1.5rem}
+.menu-dia-content{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.plato-dia{background:rgba(255,255,255,0.1);padding:1rem;border-radius:10px;border-left:3px solid var(--dorado)}
+.plato-dia h4{color:var(--dorado);margin-bottom:0.3rem}
+.menu-dia-precio{text-align:center;margin-top:1.5rem;font-size:1.5rem;color:var(--dorado);font-weight:bold}
+/* FILTROS MENU */
+.menu-filters{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
+.filter-btn{background:white;border:2px solid var(--rojo);color:var(--rojo);padding:0.5rem 1.5rem;border-radius:50px;cursor:pointer;font-weight:600;transition:all 0.3s}
+.filter-btn.active,.filter-btn:hover{background:var(--rojo);color:white}
+/* MENU GRID */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.menu-item{background:white;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:transform 0.3s,box-shadow 0.3s}
+.menu-item:hover{transform:translateY(-8px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
+.menu-item-img{height:200px;overflow:hidden;position:relative}
+.menu-item-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+.menu-item:hover .menu-item-img img{transform:scale(1.05)}
+.menu-item-body{padding:1.5rem}
+.menu-item-body h3{font-size:1.2rem;color:var(--oscuro);margin-bottom:0.5rem}
+.menu-item-body p{color:#666;font-size:0.9rem;margin-bottom:1rem}
+.menu-item-footer{display:flex;justify-content:space-between;align-items:center}
+.price{font-size:1.4rem;color:var(--rojo);font-weight:bold}
+.badges{display:flex;gap:0.3rem}
+.badge{font-size:0.7rem;padding:0.2rem 0.5rem;border-radius:20px;font-weight:600}
+.badge-veg{background:#e8f5e9;color:#2e7d32}
+.badge-pic{background:#fff3e0;color:#e65100}
+.badge-sin{background:#e3f2fd;color:#1565c0}
+/* GALERIA */
+.gallery-bg{background:var(--gris)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;max-width:1200px;margin:0 auto;padding:0 2rem}
+.gallery-item{border-radius:10px;overflow:hidden;height:250px;cursor:pointer;position:relative}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(220,20,60,0);display:flex;align-items:center;justify-content:center;transition:0.3s}
+.gallery-item:hover .gallery-overlay{background:rgba(220,20,60,0.3)}
+.gallery-overlay i{color:white;font-size:2rem;opacity:0;transition:0.3s}
+.gallery-item:hover .gallery-overlay i{opacity:1}
+/* TESTIMONIOS */
+.testimonios-bg{background:linear-gradient(135deg,#fff9f0,#fff0f0)}
+.testimonios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:1200px;margin:0 auto;padding:0 2rem}
+.testimonio{background:white;border-radius:15px;padding:2rem;box-shadow:0 4px 15px rgba(0,0,0,0.08);position:relative}
+.testimonio::before{content:'"';font-size:5rem;color:var(--rojo);opacity:0.2;position:absolute;top:-10px;left:15px;font-family:serif}
+.testimonio .stars{color:var(--dorado);margin-bottom:1rem;font-size:1.2rem}
+.testimonio p{color:#555;font-style:italic;margin-bottom:1rem}
+.testimonio-autor{display:flex;align-items:center;gap:1rem}
+.autor-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--rojo),var(--naranja));display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:1.2rem}
+.autor-info h4{font-weight:bold;color:var(--oscuro)}
+.autor-info span{color:#888;font-size:0.85rem}
+/* EVENTOS */
+.eventos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+.evento-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:transform 0.3s}
+.evento-card:hover{transform:translateY(-5px)}
+.evento-img{height:200px;overflow:hidden}
+.evento-img img{width:100%;height:100%;object-fit:cover}
+.evento-body{padding:1.5rem}
+.evento-body h3{color:var(--rojo);margin-bottom:0.5rem;font-size:1.2rem}
+.evento-body p{color:#666;font-size:0.9rem}
+/* HORARIOS */
+.horarios-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;max-width:1200px;margin:0 auto;padding:0 2rem}
+.horarios-box{background:white;border-radius:15px;padding:2rem;box-shadow:0 4px 15px rgba(0,0,0,0.08)}
+.horarios-box h3{color:var(--rojo);margin-bottom:1.5rem;font-size:1.4rem;display:flex;align-items:center;gap:0.5rem}
+.horario-row{display:flex;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #eee}
+.horario-row:last-child{border-bottom:none}
+.horario-row .dia{font-weight:600;color:var(--oscuro)}
+.horario-row .hora{color:#666}
+.cerrado{color:#e53935!important;font-weight:600}
+/* CONTACTO FORM */
+.contact-box{background:linear-gradient(135deg,var(--rojo),var(--naranja));border-radius:15px;padding:2rem;color:white}
+.contact-box h3{margin-bottom:1.5rem;font-size:1.4rem}
+.form-group{margin-bottom:1rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.9rem 1rem;border:none;border-radius:8px;font-size:1rem;font-family:inherit}
+.form-group textarea{height:100px;resize:vertical}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#999}
+/* FAQ */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{background:white;border-radius:10px;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.07);overflow:hidden}
+.faq-question{padding:1.2rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;color:var(--oscuro)}
+.faq-question i{color:var(--rojo);transition:transform 0.3s}
+.faq-answer{padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s}
+.faq-item.open .faq-answer{max-height:200px;padding:0 1.5rem 1.2rem}
+.faq-item.open .faq-question i{transform:rotate(180deg)}
+/* NEWSLETTER */
+.newsletter{background:var(--oscuro);color:white;text-align:center;padding:4rem 2rem}
+.newsletter h2{color:var(--dorado);margin-bottom:1rem}
+.newsletter p{margin-bottom:2rem;opacity:0.8}
+.newsletter-form{display:flex;gap:1rem;max-width:500px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.newsletter-form input{flex:1;min-width:250px;padding:0.9rem 1.5rem;border:none;border-radius:50px;font-size:1rem}
+/* MAPA */
+.mapa-section{background:var(--gris)}
+.mapa-section iframe{width:100%;height:400px;border-radius:15px;border:none}
+/* FOOTER */
+footer{background:var(--oscuro);color:white;padding:3rem 2rem 1.5rem}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-bottom:2rem}
+.footer-col h4{color:var(--dorado);margin-bottom:1rem;font-size:1.1rem}
+.footer-col p,.footer-col a{color:#aaa;text-decoration:none;display:block;margin-bottom:0.5rem;font-size:0.9rem}
+.footer-col a:hover{color:var(--dorado)}
+.social-links{display:flex;gap:1rem;margin-top:0.5rem}
+.social-links a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;transition:background 0.3s}
+.social-links a:hover{background:var(--rojo)}
+.footer-bottom{text-align:center;color:#666;font-size:0.85rem;border-top:1px solid #333;padding-top:1.5rem}
+/* WHATSAPP FLOTANTE */
+.whatsapp-btn{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;text-decoration:none;box-shadow:0 4px 15px rgba(37,211,102,0.4);z-index:999;transition:transform 0.3s;animation:pulse 2s infinite}
+.whatsapp-btn:hover{transform:scale(1.1)}
+@keyframes pulse{0%,100%{box-shadow:0 4px 15px rgba(37,211,102,0.4)}50%{box-shadow:0 4px 25px rgba(37,211,102,0.7)}}
+/* MODAL */
+.modal{display:none;position:fixed;z-index:2000;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center}
+.modal.show{display:flex}
+.modal-content{background:white;border-radius:20px;padding:2.5rem;max-width:500px;width:90%;text-align:center;animation:fadeInDown 0.4s ease}
+.modal-content h3{color:var(--rojo);font-size:1.8rem;margin-bottom:1rem}
+.modal-content p{color:#555;margin-bottom:1.5rem}
+/* RESPONSIVE */
+@media(max-width:768px){
+.hamburger{display:flex}
+nav ul{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:linear-gradient(135deg,var(--rojo),var(--naranja));padding:1rem 2rem}
+nav ul.open{display:flex}
+.hero h1{font-size:2.2rem}
+.about-grid,.horarios-contact-grid{grid-template-columns:1fr}
+.menu-dia-content{grid-template-columns:1fr}
+.features{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+}
+/* ANIMACION SCROLL */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<!-- BANNER TOP -->
+<div class="banner-top">🥢 Martes a Jueves: Menu del Dia por 11.90€ (bebida incluida) | 📞 965 123 456 | 🚗 Tambien para llevar y a domicilio</div>
+<!-- HEADER -->
+<header style="top:36px">
+<nav>
+<div class="nav-logo"><i class="fas fa-dragon"></i> Dragon Imperial</div>
+<ul id="navMenu">
+<li><a href="#inicio">Inicio</a></li>
+<li><a href="#nosotros">Nosotros</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#galeria">Galeria</a></li>
+<li><a href="#eventos">Eventos</a></li>
+<li><a href="#contacto">Reservas</a></li>
+</ul>
+<div class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></div>
+</nav>
+</header>
+<!-- HERO -->
+<section id="inicio" class="hero">
+<h1><i class="fas fa-dragon"></i> Dragon Imperial</h1>
+<p>Cocina China Tradicional en el Corazon de Elche desde 1998</p>
+<div class="hero-btns">
+<a href="#menu" class="btn"><i class="fas fa-utensils"></i> Ver Carta</a>
+<a href="#contacto" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> Reservar Mesa</a>
+</div>
+</section>
+<!-- ESTADISTICAS -->
+<div class="stats">
+<div class="stats-grid">
+<div class="stat-item fade-in"><h3 id="stat-anos">0</h3><p>Anos de Tradicion</p></div>
+<div class="stat-item fade-in"><h3 id="stat-platos">0</h3><p>Platos Autenticos</p></div>
+<div class="stat-item fade-in"><h3 id="stat-clientes">0</h3><p>Clientes Satisfechos</p></div>
+<div class="stat-item fade-in"><h3 id="stat-estrellas">4.8</h3><p>Valoracion Media <i class="fas fa-star"></i></p></div>
+</div>
+</div>
+<!-- NOSOTROS -->
+<section id="nosotros">
+<h2 class="section-title fade-in">Nuestra Historia</h2>
+<p class="section-subtitle fade-in">Desde Shanghai a Elche, llevamos 26 anos compartiendo nuestra pasion</p>
+<div class="about-grid">
+<div class="about-img fade-in">
+<img src="https://images.unsplash.com/photo-1571091655789-405eb7a3a3a8?w=800&q=80" alt="Interior Dragon Imperial" loading="lazy">
+</div>
+<div class="about-text fade-in">
+<h3>Una familia, una pasion</h3>
+<p>La familia Chen llego a Elche en 1998 con una mision: traer los autenticos sabores de Shanghai y Canton a la Comunidad Valenciana. Tres generaciones trabajando juntas para preservar recetas centenarias.</p>
+<p>Utilizamos ingredientes frescos seleccionados diariamente y especias importadas directamente desde China. Cada plato es una experiencia autentica preparada con amor y tradicion.</p>
+<div class="features">
+<div class="feature-item"><i class="fas fa-check-circle"></i><span>Ingredientes frescos diarios</span></div>
+<div class="feature-item"><i class="fas fa-leaf"></i><span>Opciones vegetarianas</span></div>
+<div class="feature-item"><i class="fas fa-child"></i><span>Menu infantil disponible</span></div>
+<div class="feature-item"><i class="fas fa-car"></i><span>Servicio a domicilio</span></div>
+<div class="feature-item"><i class="fas fa-parking"></i><span>Parking gratuito cercano</span></div>
+<div class="feature-item"><i class="fas fa-wifi"></i><span>WiFi gratuito</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- MENU -->
+<section id="menu">
+<h2 class="section-title fade-in">Nuestra Carta</h2>
+<p class="section-subtitle fade-in">Autenticos sabores de la cocina china tradicional</p>
+<!-- MENU DEL DIA -->
+<div class="menu-dia fade-in">
+<h3><i class="fas fa-sun"></i> Menu del Dia - Martes a Jueves</h3>
+<div class="menu-dia-content">
+<div class="plato-dia"><h4>Primero</h4><p>Sopa de pollo con maiz o Rollitos de primavera (2 uds)</p></div>
+<div class="plato-dia"><h4>Segundo</h4><p>Pollo con almendras o Cerdo agridulce o Verduras salteadas</p></div>
+<div class="plato-dia"><h4>Acompanamiento</h4><p>Arroz blanco o Arroz tres delicias</p></div>
+<div class="plato-dia"><h4>Postre</h4><p>Helado de te verde o Fruta del tiempo</p></div>
+</div>
+<div class="menu-dia-precio">Todo por solo 11.90€ <small style="font-size:0.9rem;opacity:0.8">(bebida incluida)</small></div>
+</div>
+<!-- FILTROS -->
+<div class="menu-filters">
+<button class="filter-btn active" onclick="filterMenu('todos')">Todos</button>
+<button class="filter-btn" onclick="filterMenu('entrantes')">Entrantes</button>
+<button class="filter-btn" onclick="filterMenu('sopas')">Sopas</button>
+<button class="filter-btn" onclick="filterMenu('arroces')">Arroces</button>
+<button class="filter-btn" onclick="filterMenu('carnes')">Carnes</button>
+<button class="filter-btn" onclick="filterMenu('pescados')">Pescados</button>
+<button class="filter-btn" onclick="filterMenu('infantil')">Menu Ninos</button>
+<button class="filter-btn" onclick="filterMenu('postres')">Postres</button>
+</div>
+<div class="menu-grid">
+<div class="menu-item fade-in" data-cat="entrantes">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400&q=80" alt="Rollitos de Primavera" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Rollitos de Primavera (4 uds)</h3>
+<p>Rollitos crujientes rellenos de verduras y cerdo. Servidos con salsa agridulce.</p>
+<div class="menu-item-footer"><span class="price">7.50€</span><div class="badges"><span class="badge badge-veg">Veg</span></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="entrantes">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1617196035183-421b4040d20f?w=400&q=80" alt="Gyozas" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Gyozas a la Plancha (6 uds)</h3>
+<p>Empanadillas japonesas de cerdo y jengibre, doradas a la plancha.</p>
+<div class="menu-item-footer"><span class="price">8.90€</span><div class="badges"></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="sopas">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80" alt="Sopa de Pollo" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Sopa de Pollo con Maiz</h3>
+<p>Caldo casero de pollo con maiz dulce, huevo y cebollino fresco.</p>
+<div class="menu-item-footer"><span class="price">5.50€</span><div class="badges"><span class="badge badge-sin">Sin Gluten</span></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="sopas">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Sopa Wonton" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Sopa Wonton</h3>
+<p>Caldo de cerdo con wontons rellenos de gambas y cerdo. Receta de Shanghai.</p>
+<div class="menu-item-footer"><span class="price">7.20€</span><div class="badges"></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="arroces">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80" alt="Arroz Tres Delicias" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Arroz Tres Delicias</h3>
+<p>Arroz salteado con gambas, pollo, jamon y huevo. El clasico de la cocina cantonesa.</p>
+<div class="menu-item-footer"><span class="price">12.00€</span><div class="badges"></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="carnes">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" alt="Pollo al Curry" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Pollo al Curry Picante</h3>
+<p>Pollo tierno en salsa de curry con especias de Canton. Servido con arroz blanco.</p>
+<div class="menu-item-footer"><span class="price">14.00€</span><div class="badges"><span class="badge badge-pic">Picante</span></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="carnes">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=400&q=80" alt="Pato Pekin" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Pato Pekin (para 2)</h3>
+<p>Pato crujiente con panqueques chinos, salsa hoisin y cebollino. La estrella de la carta.</p>
+<div class="menu-item-footer"><span class="price">32.00€</span><div class="badges"></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="carnes">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Cerdo Agridulce" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Cerdo Agridulce</h3>
+<p>Trozos de cerdo en tempura con salsa agridulce, pimiento y pina.</p>
+<div class="menu-item-footer"><span class="price">13.50€</span><div class="badges"></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="pescados">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&q=80" alt="Gambas Jengibre" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Gambas al Jengibre y Ajo</h3>
+<p>Gambas salteadas con jengibre fresco, ajo y cebollino en salsa de ostra.</p>
+<div class="menu-item-footer"><span class="price">16.50€</span><div class="badges"><span class="badge badge-sin">Sin Gluten</span></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="infantil">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" alt="Menu Infantil" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Menu Infantil Dragon <i class="fas fa-dragon" style="color:#dc143c"></i></h3>
+<p>Rollito + Arroz frito + Pollo rebozado + Helado de vainilla. Para los pequenos!</p>
+<div class="menu-item-footer"><span class="price">8.90€</span><div class="badges"><span class="badge badge-veg">Ninos</span></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="postres">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80" alt="Helado Te Verde" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Helado de Te Verde Matcha</h3>
+<p>Cremoso helado artesanal de matcha japones con galleta de sesamo.</p>
+<div class="menu-item-footer"><span class="price">4.50€</span><div class="badges"><span class="badge badge-veg">Veg</span></div></div>
+</div></div>
+<div class="menu-item fade-in" data-cat="postres">
+<div class="menu-item-img"><img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80" alt="Mochi" loading="lazy"></div>
+<div class="menu-item-body">
+<h3>Mochi de Mango (3 uds)</h3>
+<p>Bolitas de arroz glutinoso rellenas de helado de mango. Postre japones tradicional.</p>
+<div class="menu-item-footer"><span class="price">5.50€</span><div class="badges"><span class="badge badge-veg">Veg</span></div></div>
+</div></div>
+</div>
+</section>
+<!-- GALERIA -->
+<div id="galeria" class="gallery-bg full-width" style="padding:5rem 0">
+<section style="padding:0 0 3rem">
+<h2 class="section-title fade-in">Galeria</h2>
+<p class="section-subtitle fade-in">Una muestra de nuestra cocina y ambiente</p>
+</section>
+<div class="gallery-grid">
+<div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&q=80" alt="Cocina china" loading="lazy"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+<div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&q=80" alt="Sushi y rollitos" loading="lazy"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+<div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500&q=80" alt="Plato especial" loading="lazy"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+<div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Restaurante interior" loading="lazy"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+<div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80" alt="Pollo wok" loading="lazy"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+<div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=500&q=80" alt="Rollitos" loading="lazy"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+</div>
+</div>
+<!-- TESTIMONIOS -->
+<div class="testimonios-bg full-width" style="padding:5rem 0">
+<section style="padding:0 0 3rem">
+<h2 class="section-title fade-in">Lo que Dicen Nuestros Clientes</h2>
+<p class="section-subtitle fade-in">Mas de 1.000 resenas positivas en Google y TripAdvisor</p>
+</section>
+<div class="testimonios-grid">
+<div class="testimonio fade-in">
+<div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+<p>El mejor restaurante chino de Elche sin duda. El Pato Pekin es espectacular, receta autentica como la que probamos en Shanghai. El servicio es excelente y el ambiente muy acogedor.</p>
+<div class="testimonio-autor"><div class="autor-avatar">M</div><div class="autor-info"><h4>Maria Garcia</h4><span>Google Reviews - Hace 2 semanas</span></div></div>
+</div>
+<div class="testimonio fade-in">
+<div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+<p>Venimos en familia cada mes. Los ninos adoran el menu infantil Dragon. Los rollitos de primavera son los mejores que hemos probado. Precio muy razonable para la calidad.</p>
+<div class="testimonio-autor"><div class="autor-avatar">C</div><div class="autor-info"><h4>Carlos Martinez</h4><span>TripAdvisor - Hace 1 mes</span></div></div>
+</div>
+<div class="testimonio fade-in">
+<div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+<p>Organizamos el cumpleanos de mi madre aqui para 25 personas. El servicio fue impecable, la decoracion preciosa y la comida deliciosa. Totalmente recomendable para eventos.</p>
+<div class="testimonio-autor"><div class="autor-avatar">A</div><div class="autor-info"><h4>Ana Lopez</h4><span>Google Reviews - Hace 3 semanas</span></div></div>
+</div>
+</div>
+</div>
+<!-- EVENTOS -->
+<section id="eventos">
+<h2 class="section-title fade-in">Eventos y Celebraciones</h2>
+<p class="section-subtitle fade-in">Hacemos de tu celebracion un momento inolvidable</p>
+<div class="eventos-grid">
+<div class="evento-card fade-in">
+<div class="evento-img"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=500&q=80" alt="Cumpleanos" loading="lazy"></div>
+<div class="evento-body"><h3><i class="fas fa-birthday-cake"></i> Cumpleanos y Aniversarios</h3><p>Celebra tu dia especial con nosotros. Menu personalizado, decoracion incluida y tarta sorpresa para el cumpleanos. Hasta 60 personas.</p><a href="#contacto" class="btn" style="margin-top:1rem;padding:0.6rem 1.5rem;font-size:0.9rem">Consultar Disponibilidad</a></div>
+</div>
+<div class="evento-card fade-in">
+<div class="evento-img"><img src="https://images.unsplash.com/photo-1511795409834-432f7b1728f2?w=500&q=80" alt="Empresa" loading="lazy"></div>
+<div class="evento-body"><h3><i class="fas fa-briefcase"></i> Comidas de Empresa</h3><p>Menus corporativos adaptados a tu presupuesto. Factura disponible. Sala privada para reuniones de hasta 20 personas con proyector.</p><a href="#contacto" class="btn" style="margin-top:1rem;padding:0.6rem 1.5rem;font-size:0.9rem">Solicitar Presupuesto</a></div>
+</div>
+<div class="evento-card fade-in">
+<div class="evento-img"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80" alt="Boda" loading="lazy"></div>
+<div class="evento-body"><h3><i class="fas fa-heart"></i> Bodas y Banquetes</h3><p>Banquetes de boda con cocina china autentica. Menu degustacion de 8 platos. Decoracion orientalista. Hasta 120 invitados. Pide tu presupuesto sin compromiso.</p><a href="#contacto" class="btn" style="margin-top:1rem;padding:0.6rem 1.5rem;font-size:0.9rem">Pedir Presupuesto</a></div>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section>
+<h2 class="section-title fade-in">Preguntas Frecuentes</h2>
+<p class="section-subtitle fade-in">Resolvemos tus dudas</p>
+<div class="faq-list">
+<div class="faq-item fade-in">
+<div class="faq-question" onclick="toggleFaq(this)">Teneis opciones para alergicos al gluten? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer">Si, tenemos varios platos sin gluten en nuestra carta, identificados con el icono correspondiente. Si tienes alguna alergia especifica, comunicalos al reservar o al llegar y nuestro chef adaptara los platos.</div>
+</div>
+<div class="faq-item fade-in">
+<div class="faq-question" onclick="toggleFaq(this)">Haceis delivery o reparto a domicilio? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer">Si, hacemos reparto a domicilio en Elche y alrededores (radio de 5 km). Pedido minimo de 15EUR. Llama al 965 123 456 o usa nuestra opcion de WhatsApp. Tambien disponemos de recogida en local.</div>
+</div>
+<div class="faq-item fade-in">
+<div class="faq-question" onclick="toggleFaq(this)">Necesito reservar mesa con antelacion? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer">Para grupos de mas de 4 personas recomendamos reservar con al menos 24h de antelacion. Los fines de semana y festivos es imprescindible reservar. Puedes hacerlo por telefono, WhatsApp o formulario en esta web.</div>
+</div>
+<div class="faq-item fade-in">
+<div class="faq-question" onclick="toggleFaq(this)">Aceptais tarjeta de credito? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer">Si, aceptamos todas las tarjetas de credito y debito, Bizum y efectivo. Para grupos de empresa emitimos factura con todos los datos fiscales.</div>
+</div>
+<div class="faq-item fade-in">
+<div class="faq-question" onclick="toggleFaq(this)">Hay menu infantil disponible? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer">Si! Tenemos el Menu Infantil Dragon por 8.90EUR que incluye rollito de primavera, arroz frito, pollo rebozado y helado de vainilla. Perfecto para los mas pequenos de la familia.</div>
+</div>
+</div>
+</section>
+<!-- HORARIOS Y CONTACTO -->
+<div id="contacto" class="full-width" style="padding:5rem 0;background:var(--gris)">
+<section style="padding:0 0 3rem">
+<h2 class="section-title fade-in">Horarios y Reservas</h2>
+<p class="section-subtitle fade-in">Te esperamos con los brazos abiertos</p>
+</section>
+<div class="horarios-contact-grid">
+<div>
+<div class="horarios-box fade-in">
+<h3><i class="fas fa-clock"></i> Horario de Apertura</h3>
+<div class="horario-row"><span class="dia">Lunes</span><span class="hora cerrado">Cerrado</span></div>
+<div class="horario-row"><span class="dia">Martes - Jueves</span><span class="hora">13:00 - 15:30 | 20:00 - 23:00</span></div>
+<div class="horario-row"><span class="dia">Viernes</span><span class="hora">13:00 - 15:30 | 20:00 - 23:30</span></div>
+<div class="horario-row"><span class="dia">Sabado</span><span class="hora">13:00 - 16:00 | 20:00 - 23:30</span></div>
+<div class="horario-row"><span class="dia">Domingo</span><span class="hora">13:00 - 16:00 | 20:00 - 22:30</span></div>
+</div>
+<div class="horarios-box fade-in" style="margin-top:1.5rem">
+<h3><i class="fas fa-map-marker-alt"></i> Como Llegar</h3>
+<p style="color:#555;margin-bottom:0.5rem"><strong>Direccion:</strong> Calle Mayor 45, 03201 Elche, Alicante</p>
+<p style="color:#555;margin-bottom:0.5rem"><strong>Telefono:</strong> 965 123 456</p>
+<p style="color:#555;margin-bottom:0.5rem"><strong>WhatsApp:</strong> 634 567 890</p>
+<p style="color:#555"><strong>Email:</strong> info@dragonimperial.es</p>
+</div>
+</div>
+<div class="contact-box fade-in">
+<h3><i class="fas fa-calendar-check"></i> Reservar Mesa</h3>
+<form onsubmit="submitReserva(event)">
+<div class="form-group"><input type="text" placeholder="Nombre completo" required></div>
+<div class="form-group"><input type="email" placeholder="Email" required></div>
+<div class="form-group"><input type="tel" placeholder="Telefono" required></div>
+<div class="form-group"><select required><option value="">Numero de personas</option><option value="1">1 persona</option><option value="2">2 personas</option><option value="3">3 personas</option><option value="4">4 personas</option><option value="5-8">5-8 personas</option><option value="+8">Mas de 8 (grupo)</option></select></div>
+<div class="form-group"><input type="date" required></div>
+<div class="form-group"><select><option value="">Turno preferido</option><option>Comida (13:00-15:30)</option><option>Cena (20:00-23:00)</option></select></div>
+<div class="form-group"><textarea placeholder="Mensaje o peticiones especiales (alergias, ocasion especial...)"></textarea></div>
+<button type="submit" class="btn" style="width:100%;background:white;color:var(--rojo)"><i class="fas fa-check"></i> Confirmar Reserva</button>
+</form>
+</div>
+</div>
+</div>
+<!-- MAPA -->
+<div class="mapa-section full-width" style="padding:3rem 2rem">
+<div style="max-width:1200px;margin:0 auto">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3108.2!2d-0.699!3d38.267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd604f943A0x!2sElche%2C%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicacion Dragon Imperial"></iframe>
+</div>
+</div>
+<!-- NEWSLETTER -->
+<div class="newsletter">
+<h2>Suscribete a Nuestras Novedades</h2>
+<p>Recibe ofertas exclusivas, el menu de temporada y noticias del restaurante</p>
+<div class="newsletter-form">
+<input type="email" placeholder="Tu email aqui...">
+<button class="btn" onclick="subscribeNewsletter()">Suscribirme</button>
+</div>
+</div>
+<!-- FOOTER -->
+<footer>
+<div class="footer-grid">
+<div class="footer-col">
+<h4><i class="fas fa-dragon"></i> Dragon Imperial</h4>
+<p>Cocina china autentica en el corazon de Elche desde 1998. Tres generaciones de tradicion y sabor.</p>
+<div class="social-links">
+<a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+<a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="#" aria-label="TripAdvisor"><i class="fab fa-tripadvisor"></i></a>
+<a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
+</div>
+</div>
+<div class="footer-col">
+<h4>Navegacion</h4>
+<a href="#inicio">Inicio</a>
+<a href="#nosotros">Nuestra Historia</a>
+<a href="#menu">Carta y Menu</a>
+<a href="#galeria">Galeria de Fotos</a>
+<a href="#eventos">Eventos y Bodas</a>
+<a href="#contacto">Reservas</a>
+</div>
+<div class="footer-col">
+<h4>Contacto</h4>
+<p><i class="fas fa-map-marker-alt"></i> Calle Mayor 45, Elche</p>
+<p><i class="fas fa-phone"></i> 965 123 456</p>
+<p><i class="fab fa-whatsapp"></i> 634 567 890</p>
+<p><i class="fas fa-envelope"></i> info@dragonimperial.es</p>
+</div>
+<div class="footer-col">
+<h4>Horario</h4>
+<p>Lunes: Cerrado</p>
+<p>Mar - Jue: 13-15:30 | 20-23h</p>
+<p>Viernes: 13-15:30 | 20-23:30h</p>
+<p>Sabado: 13-16 | 20-23:30h</p>
+<p>Domingo: 13-16 | 20-22:30h</p>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 Dragon Imperial - Elche, Comunidad Valenciana | Disenada con <i class="fas fa-heart" style="color:#dc143c"></i> por SrJosu</p>
+</div>
+</footer>
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/34634567890?text=Hola! Quisiera hacer una reserva en Dragon Imperial" class="whatsapp-btn" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<!-- MODAL RESERVA -->
+<div id="modal" class="modal" onclick="closeModal(event)">
+<div class="modal-content">
+<h3><i class="fas fa-check-circle" style="color:#4caf50"></i> Reserva Confirmada!</h3>
+<p>Hemos recibido tu reserva. Te confirmaremos en breve por email y telefono. Nos vemos pronto!</p>
+<p style="color:#888;font-size:0.9rem">Dragon Imperial - 965 123 456</p>
+<button class="btn" onclick="document.getElementById('modal').classList.remove('show')">Cerrar</button>
+</div>
+</div>
+<script>
+// MENU HAMBURGUESA
+function toggleMenu(){
+document.getElementById('navMenu').classList.toggle('open');
+}
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+a.addEventListener('click',e=>{
+e.preventDefault();
+document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+document.getElementById('navMenu').classList.remove('open');
+});
+});
+// FILTRO MENU
+function filterMenu(cat){
+const items=document.querySelectorAll('.menu-item');
+const btns=document.querySelectorAll('.filter-btn');
+btns.forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+items.forEach(i=>{
+if(cat==='todos'||i.dataset.cat===cat){i.style.display='block';}
+else{i.style.display='none';}
+});
+}
+// FAQ
+function toggleFaq(el){
+const item=el.parentElement;
+const wasOpen=item.classList.contains('open');
+document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
+if(!wasOpen)item.classList.add('open');
+}
+// RESERVA FORM
+function submitReserva(e){
+e.preventDefault();
+document.getElementById('modal').classList.add('show');
+e.target.reset();
+}
+function closeModal(e){
+if(e.target===document.getElementById('modal')){
+document.getElementById('modal').classList.remove('show');
+}
+}
+// NEWSLETTER
+function subscribeNewsletter(){
+const input=document.querySelector('.newsletter-form input');
+if(input.value&&input.value.includes('@')){
+alert('Gracias por suscribirte! Pronto recibiras nuestras novedades.');
+input.value='';
+}else{
+alert('Por favor introduce un email valido.');
+}
+}
+// ANIMACION SCROLL
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{
+if(e.isIntersecting)e.target.classList.add('visible');
+});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+// CONTADOR ESTADISTICAS
+function animateCounter(id,target,suffix=''){
+const el=document.getElementById(id);
+if(!el)return;
+let current=0;
+const step=Math.ceil(target/60);
+const timer=setInterval(()=>{
+current+=step;
+if(current>=target){current=target;clearInterval(timer);}
+el.textContent=current.toLocaleString()+suffix;
+},30);
+}
+const statsObserver=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{
+if(e.isIntersecting){
+animateCounter('stat-anos',26,'+');
+animateCounter('stat-platos',85,'+');
+animateCounter('stat-clientes',50000,'+');
+statsObserver.disconnect();
+}
+});
+},{threshold:0.3});
+const statsEl=document.querySelector('.stats');
+if(statsEl)statsObserver.observe(statsEl);
+</script>
+</body>
+</html>
