@@ -9,6 +9,8 @@
 <meta name="author" content="Dragon Imperial">
 <meta name="theme-color" content="#c8102e">
 <link rel="canonical" href="https://dragonimperial.es">
+<meta name="robots" content="index,follow">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Dragon Imperial – Cocina China Auténtica en Elche">
@@ -69,6 +71,8 @@ if('serviceWorker' in navigator){
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -99,6 +103,10 @@ if('serviceWorker' in navigator){
   --font-body:'DM Sans',sans-serif;
   --font-zh:'Noto Serif SC',serif;
 }
+/* Skip link for keyboard users */
+.skip-link{
+  position:fixed;left:12px;top:12px;background:var(--rojo);color:white;padding:0.6rem 0.9rem;border-radius:6px;z-index:10050;transform:translateY(-120%);transition:transform 0.18s;box-shadow:0 6px 18px rgba(0,0,0,0.28);text-decoration:none;font-weight:700}
+.skip-link:focus{transform:translateY(0);outline:none}
 [data-theme="dark"]{
   --crema:#111009;
   --crema-2:#1a1712;
@@ -337,7 +345,7 @@ nav a:hover{color:var(--dorado-claro);background:rgba(201,150,12,0.1)}
 .btn-gold{background:var(--dorado-claro);color:#1c1710}
 .btn-gold:hover{box-shadow:0 8px 24px rgba(240,180,41,0.4);background:#f8c133}
 .btn-outline{background:transparent;border:2px solid white;color:white}
-.btn-outline:hover{background:white;color:var(--rojo)}
+.btn-outline:hover{background:var(--dorado-claro);color:var(--oscuro);border-color:var(--dorado-claro)}
 .btn-ghost{background:transparent;border:2px solid var(--rojo);color:var(--rojo)}
 .btn-ghost:hover{background:var(--rojo);color:white}
 .btn-sm{padding:0.55rem 1.2rem;font-size:0.85rem}
@@ -1556,21 +1564,7 @@ footer{background:var(--oscuro);color:white;padding:5rem 0 2rem}
    ITERACION 1 - María González (Frontend Tech Lead)
    CUSTOM CURSOR
 ============================================ */
-.cursor-dot{
-  position:fixed;width:8px;height:8px;border-radius:50%;
-  background:var(--rojo);pointer-events:none;z-index:99999;
-  transform:translate(-50%,-50%);transition:transform 0.1s,opacity 0.3s;
-  mix-blend-mode:difference;
-}
-.cursor-ring{
-  position:fixed;width:36px;height:36px;border-radius:50%;
-  border:1.5px solid rgba(200,16,46,0.5);pointer-events:none;z-index:99999;
-  transform:translate(-50%,-50%);
-  transition:transform 0.18s cubic-bezier(0.2,1,0.3,1),width 0.3s,height 0.3s,opacity 0.3s;
-}
-body.cursor-hover .cursor-dot{transform:translate(-50%,-50%) scale(2.5);background:var(--dorado-claro)}
-body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,12,0.4)}
-@media(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+/* Custom cursor removed per client request (reduces distraction). */
 
 /* ============================================
    TOAST NOTIFICATIONS
@@ -1856,6 +1850,8 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 </head>
 <body>
 
+<a href="#inicio" class="skip-link">Saltar al contenido</a>
+
 <!-- ================================
      LOADING SCREEN
 ================================ -->
@@ -1871,11 +1867,11 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 <div id="scroll-prog" role="progressbar" aria-label="Progreso de lectura"></div>
 
 <!-- COOKIE BANNER -->
-<div id="cookie" role="alertdialog" aria-label="Aviso de cookies">
+  <div id="cookie" role="alertdialog" aria-label="Aviso de cookies">
   <p>🍪 Usamos cookies para ofrecerte la mejor experiencia. Al continuar navegando aceptas nuestra <a href="#" style="color:var(--dorado-claro)">política de cookies</a>.</p>
   <div class="cookie-btns">
-    <button class="btn btn-sm btn-ghost" onclick="closeCookie()" style="color:white;border-color:rgba(255,255,255,0.3)">Solo esenciales</button>
-    <button class="btn btn-sm btn-gold" onclick="acceptCookie()">Aceptar todo</button>
+    <button type="button" class="btn btn-sm btn-ghost" onclick="closeCookie()" style="color:white;border-color:rgba(255,255,255,0.3)">Solo esenciales</button>
+    <button type="button" class="btn btn-sm btn-gold" onclick="acceptCookie()">Aceptar todo</button>
   </div>
 </div>
 
@@ -1887,8 +1883,8 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
     <small>Accede rápido, pide y reserva desde tu móvil</small>
   </div>
   <div class="pwa-btns">
-    <button class="btn btn-sm btn-primary" id="pwa-install-btn" onclick="installPWA()">Instalar</button>
-    <button class="btn btn-sm" style="background:transparent;color:rgba(255,255,255,0.5);padding:0.4rem" onclick="dismissPWA()">✕</button>
+    <button type="button" class="btn btn-sm btn-primary" id="pwa-install-btn" onclick="installPWA()">Instalar</button>
+    <button type="button" class="btn btn-sm" style="background:transparent;color:rgba(255,255,255,0.5);padding:0.4rem" onclick="dismissPWA()">✕</button>
   </div>
 </div>
 
@@ -1946,18 +1942,20 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
     </nav>
     <div class="nav-controls">
       <div class="lang-toggle" aria-label="Idioma">
-        <button class="lang-btn active" onclick="setLang('es')" aria-pressed="true">ES</button>
-        <button class="lang-btn" onclick="setLang('en')" aria-pressed="false">EN</button>
+        <button type="button" class="lang-btn active" onclick="setLang('es')" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" onclick="setLang('en')" aria-pressed="false">EN</button>
       </div>
-      <button class="btn-icon" onclick="toggleTheme()" aria-label="Cambiar tema">
+      <button type="button" class="btn-icon" onclick="toggleTheme()" aria-label="Cambiar tema">
         <i class="fas fa-moon" id="themeIcon" aria-hidden="true"></i>
       </button>
-      <button class="hamburger" onclick="toggleMenu()" aria-label="Menú de navegación" aria-expanded="false" id="hamburgerBtn">
+      <button type="button" class="hamburger" onclick="toggleMenu()" aria-label="Menú de navegación" aria-expanded="false" id="hamburgerBtn" aria-controls="navMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <!-- HERO -->
 <section id="inicio" class="hero">
@@ -2280,10 +2278,10 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
       </div>
 
       <div class="menu-dia-tabs" role="tablist" aria-label="Opciones de menú del día">
-        <button class="dia-tab active" onclick="switchDia('1',this)" role="tab" aria-selected="true">Opción 1</button>
-        <button class="dia-tab" onclick="switchDia('2',this)" role="tab" aria-selected="false">Opción 2</button>
-        <button class="dia-tab" onclick="switchDia('3',this)" role="tab" aria-selected="false">Vegetariana</button>
-        <button class="dia-tab" onclick="switchDia('4',this)" role="tab" aria-selected="false">Sin Gluten</button>
+        <button type="button" class="dia-tab active" onclick="switchDia('1',this)" role="tab" aria-selected="true">Opción 1</button>
+        <button type="button" class="dia-tab" onclick="switchDia('2',this)" role="tab" aria-selected="false">Opción 2</button>
+        <button type="button" class="dia-tab" onclick="switchDia('3',this)" role="tab" aria-selected="false">Vegetariana</button>
+        <button type="button" class="dia-tab" onclick="switchDia('4',this)" role="tab" aria-selected="false">Sin Gluten</button>
       </div>
 
       <div id="menu-dia-1" class="menu-dia-content" role="tabpanel">
@@ -2329,18 +2327,18 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 
     <!-- Category Filters -->
     <div class="menu-filters-row" role="toolbar" aria-label="Filtros de menú">
-      <button class="menu-filter active" onclick="filterMenu('todos',this)">Todos</button>
-      <button class="menu-filter" onclick="filterMenu('entrantes',this)">Entrantes</button>
-      <button class="menu-filter" onclick="filterMenu('sopas',this)">Sopas</button>
-      <button class="menu-filter" onclick="filterMenu('carnes',this)">Carnes</button>
-      <button class="menu-filter" onclick="filterMenu('mariscos',this)">Mariscos</button>
-      <button class="menu-filter" onclick="filterMenu('arroces',this)">Arroces</button>
-      <button class="menu-filter" onclick="filterMenu('postres',this)">Postres</button>
+      <button type="button" class="menu-filter active" onclick="filterMenu('todos',this)">Todos</button>
+      <button type="button" class="menu-filter" onclick="filterMenu('entrantes',this)">Entrantes</button>
+      <button type="button" class="menu-filter" onclick="filterMenu('sopas',this)">Sopas</button>
+      <button type="button" class="menu-filter" onclick="filterMenu('carnes',this)">Carnes</button>
+      <button type="button" class="menu-filter" onclick="filterMenu('mariscos',this)">Mariscos</button>
+      <button type="button" class="menu-filter" onclick="filterMenu('arroces',this)">Arroces</button>
+      <button type="button" class="menu-filter" onclick="filterMenu('postres',this)">Postres</button>
       <div class="allergy-filters" role="group" aria-label="Filtros de alergias">
-        <button class="allergy-filter" id="filter-sg" onclick="toggleAllergy('sg',this)" aria-pressed="false">🌿 Sin Gluten</button>
-        <button class="allergy-filter" id="filter-veg" onclick="toggleAllergy('veg',this)" aria-pressed="false">🥦 Vegetariano</button>
+        <button type="button" class="allergy-filter" id="filter-sg" onclick="toggleAllergy('sg',this)" aria-pressed="false">🌿 Sin Gluten</button>
+        <button type="button" class="allergy-filter" id="filter-veg" onclick="toggleAllergy('veg',this)" aria-pressed="false">🥦 Vegetariano</button>
       </div>
-      <button class="surprise-btn" onclick="surpriseMe()" aria-label="Sorpréndeme con un plato aleatorio">🎲 Sorpréndeme</button>
+      <button type="button" class="surprise-btn" onclick="surpriseMe()" aria-label="Sorpréndeme con un plato aleatorio">🎲 Sorpréndeme</button>
     </div>
 
     <!-- Menu Items -->
@@ -2358,7 +2356,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">5.80€</span>
           </div>
           <p class="menu-item-desc">Crujientes rollitos artesanales rellenos de verduras y cerdo, servidos con salsa agridulce.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Rollitos de Primavera","5.80€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Rollitos de Primavera","5.80€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-gluten">Gluten</span>
           </div>
@@ -2375,7 +2373,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">6.50€</span>
           </div>
           <p class="menu-item-desc">Algas frescas con aceite de sésamo, ajo laminado y vinagre de arroz.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Ensalada de Algas","6.50€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Ensalada de Algas","6.50€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-sg">Sin Gluten</span>
             <span class="tag tag-veg">Veg.</span>
@@ -2393,7 +2391,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">7.20€</span>
           </div>
           <p class="menu-item-desc">Empanadillas japonesas a la plancha rellenas de cerdo y col, con salsa ponzu artesanal.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Gyozas a la Plancha","7.20€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Gyozas a la Plancha","7.20€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-gluten">Gluten</span>
           </div>
@@ -2412,7 +2410,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">7.20€</span>
           </div>
           <p class="menu-item-desc">Caldo de cerdo 8h con wontons artesanales de gambas y cerdo. Receta de la abuela Chen.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Sopa Wonton Shanghai","7.20€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Sopa Wonton Shanghai","7.20€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-marisco">Marisco</span>
             <span class="tag tag-gluten">Gluten</span>
@@ -2430,7 +2428,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">5.50€</span>
           </div>
           <p class="menu-item-desc">Caldo dashi con pasta miso, tofu sedoso, algas wakame y cebollino fresco.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Sopa Miso con Tofu","5.50€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Sopa Miso con Tofu","5.50€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-sg">Sin Gluten</span>
             <span class="tag tag-veg">Veg.</span>
@@ -2450,7 +2448,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">32€</span>
           </div>
           <p class="menu-item-desc">Pato asado 24h en horno tradicional con panqueques artesanales y salsa hoisin. Para 2 personas.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Pato Pekín Auténtico","32€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Pato Pekín Auténtico","32€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-gluten">Gluten</span>
           </div>
@@ -2467,7 +2465,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">11.50€</span>
           </div>
           <p class="menu-item-desc">Supremas de pollo en salsa de limón y jengibre con sésamo tostado. Sin rebozar.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Pollo al Limón Cantonés","11.50€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Pollo al Limón Cantonés","11.50€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-sg">Sin Gluten</span>
           </div>
@@ -2485,7 +2483,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
             <span class="menu-item-price">16.50€</span>
           </div>
           <p class="menu-item-desc">Gambas salteadas en wok con jengibre importado, ajo negro y salsa de ostra reducida.</p>
-          <button class="add-to-basket-btn" onclick='addToBasket("Gambas al Jengibre","16.50€")'><i class="fas fa-plus"></i> Añadir</button>
+          <button type="button" class="add-to-basket-btn" onclick='addToBasket("Gambas al Jengibre","16.50€")'><i class="fas fa-plus"></i> Añadir</button>
           <div class="menu-item-tags">
             <span class="tag tag-marisco">Marisco</span>
             <span class="tag tag-sg">Sin Gluten</span>
@@ -2651,12 +2649,57 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes" onclick="closeLbOutside(event)">
-  <button class="lightbox-close" onclick="closeLb()" aria-label="Cerrar galería"><i class="fas fa-times" aria-hidden="true"></i></button>
-  <button class="lightbox-nav lb-prev" onclick="lbNav(-1)" aria-label="Imagen anterior"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+  <button type="button" class="lightbox-close" onclick="closeLb()" aria-label="Cerrar galería"><i class="fas fa-times" aria-hidden="true"></i></button>
+  <button type="button" class="lightbox-nav lb-prev" onclick="lbNav(-1)" aria-label="Imagen anterior"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
   <img src="" alt="" id="lbImg" class="lightbox-img">
-  <button class="lightbox-nav lb-next" onclick="lbNav(1)" aria-label="Siguiente imagen"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+  <button type="button" class="lightbox-nav lb-next" onclick="lbNav(1)" aria-label="Siguiente imagen"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   <div class="lightbox-caption" id="lbCaption"></div>
 </div>
+
+<!-- Progressive enhancement: blur-up for lazy images -->
+<script>
+  document.addEventListener('DOMContentLoaded',function(){
+    try{
+      const imgs = document.querySelectorAll('img[loading="lazy"]');
+      imgs.forEach(img=>{
+        img.classList.add('img-blur');
+        if(img.complete){
+          img.classList.add('loaded');
+          img.classList.remove('img-blur');
+        } else {
+          img.addEventListener('load',()=>{
+            img.classList.add('loaded');
+            img.classList.remove('img-blur');
+          },{once:true});
+        }
+      });
+    }catch(e){console.warn('Enhancement failed',e)}
+  });
+</script>
+
+<!-- Small JS helpers to improve accessibility for interactive controls -->
+<script>
+  function toggleMenu(){
+    try{
+      const btn=document.getElementById('hamburgerBtn');
+      const nav=document.getElementById('navMenu');
+      const open = nav.classList.toggle('open');
+      if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }catch(e){console.warn('toggleMenu',e)}
+  }
+  function closeCookie(){document.getElementById('cookie')?.classList.remove('show')}
+  function acceptCookie(){document.getElementById('cookie')?.classList.remove('show'); localStorage.setItem('di_cookies','accepted')}
+  function closeModal(ev){ if(ev && ev.target && ev.target.id==='modal'){ document.getElementById('modal')?.classList.remove('show') }}
+  // Basic helpers for other referenced actions (no-op safe fallbacks)
+  function installPWA(){console.info('PWA install placeholder')}
+  function dismissPWA(){document.getElementById('pwa-prompt')?.classList.remove('show')}
+  function setLang(l){document.documentElement.lang = l}
+  // Ensure keyboard users can toggle the hamburger with Enter/Space
+  document.addEventListener('DOMContentLoaded',()=>{
+    const hb=document.getElementById('hamburgerBtn');
+    if(hb) hb.addEventListener('keydown',e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleMenu() } });
+  });
+</script>
 
 <!-- TESTIMONIALS -->
 <section class="testim-section">
@@ -2757,14 +2800,14 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
     </div>
 
     <div class="carousel-controls" role="group" aria-label="Controles del carrusel">
-      <button class="c-btn" onclick="moveCar(-1)" aria-label="Testimonio anterior"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+      <button type="button" class="c-btn" onclick="moveCar(-1)" aria-label="Testimonio anterior"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
       <div class="c-dots" role="tablist" aria-label="Ir a testimonio">
-        <button class="c-dot active" onclick="goCar(0)" role="tab" aria-selected="true" aria-label="Testimonio 1"></button>
-        <button class="c-dot" onclick="goCar(1)" role="tab" aria-selected="false" aria-label="Testimonio 2"></button>
-        <button class="c-dot" onclick="goCar(2)" role="tab" aria-selected="false" aria-label="Testimonio 3"></button>
-        <button class="c-dot" onclick="goCar(3)" role="tab" aria-selected="false" aria-label="Testimonio 4"></button>
+        <button type="button" class="c-dot active" onclick="goCar(0)" role="tab" aria-selected="true" aria-label="Testimonio 1"></button>
+        <button type="button" class="c-dot" onclick="goCar(1)" role="tab" aria-selected="false" aria-label="Testimonio 2"></button>
+        <button type="button" class="c-dot" onclick="goCar(2)" role="tab" aria-selected="false" aria-label="Testimonio 3"></button>
+        <button type="button" class="c-dot" onclick="goCar(3)" role="tab" aria-selected="false" aria-label="Testimonio 4"></button>
       </div>
-      <button class="c-btn" onclick="moveCar(1)" aria-label="Siguiente testimonio"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+      <button type="button" class="c-btn" onclick="moveCar(1)" aria-label="Siguiente testimonio"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
     </div>
 
     <div style="text-align:center;margin-top:2rem">
@@ -3106,7 +3149,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
     <div class="newsletter-form" role="search" aria-label="Formulario de suscripción">
       <label for="nlEmail" class="sr-only">Tu email</label>
       <input type="email" id="nlEmail" placeholder="Tu email" autocomplete="email" aria-label="Tu dirección de email">
-      <button class="btn btn-gold" onclick="subscribeNl()" aria-label="Suscribirse a la newsletter">
+      <button type="button" class="btn btn-gold" onclick="subscribeNl()" aria-label="Suscribirse a la newsletter">
         <i class="fas fa-paper-plane" aria-hidden="true"></i> Suscribirme
       </button>
     </div>
@@ -3127,10 +3170,12 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
       <a href="https://www.facebook.com/sharer/sharer.php?u=https://dragonimperial.es" target="_blank" rel="noopener" class="share-btn s-fb" aria-label="Compartir en Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i> Facebook</a>
       <a href="https://wa.me/?text=Os recomiendo Dragon Imperial, el mejor restaurante chino de Elche: https://dragonimperial.es" target="_blank" rel="noopener" class="share-btn s-wa" aria-label="Compartir por WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
       <a href="https://twitter.com/intent/tweet?url=https://dragonimperial.es&text=El mejor restaurante chino de Elche" target="_blank" rel="noopener" class="share-btn s-tw" aria-label="Compartir en X / Twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
-      <button class="share-btn s-copy" onclick="copyLink()" aria-label="Copiar enlace"><i class="fas fa-link" aria-hidden="true"></i> Copiar enlace</button>
+      <button type="button" class="share-btn s-copy" onclick="copyLink()" aria-label="Copiar enlace"><i class="fas fa-link" aria-hidden="true"></i> Copiar enlace</button>
     </div>
   </div>
 </div>
+
+</main>
 
 <!-- FOOTER -->
 <footer role="contentinfo">
@@ -3195,11 +3240,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 </a>
 
 
-<!-- =============================
-     CUSTOM CURSOR (Test 1 - María González)
-============================= -->
-<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<!-- Custom cursor removed per user request -->
 
 <!-- =============================
      TOAST CONTAINER (Test 1)
@@ -3211,7 +3252,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 ============================= -->
 <div id="exit-intent" role="dialog" aria-modal="true" aria-label="Oferta especial" onclick="closeExitIntent(event)">
   <div class="exit-box">
-    <button class="exit-close" onclick="closeExitIntentBtn()" aria-label="Cerrar oferta">✕</button>
+    <button type="button" class="exit-close" onclick="closeExitIntentBtn()" aria-label="Cerrar oferta">✕</button>
     <div class="exit-discount" aria-hidden="true">-10%</div>
     <h2>¡Espera! Tenemos algo para ti</h2>
     <p>Antes de irte, llévate un <strong style="color:var(--dorado-claro)">10% de descuento</strong> en tu próxima reserva o pedido. Solo por hoy.</p>
@@ -3237,14 +3278,14 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 <!-- =============================
      MINI BASKET (Test 4 - Miguel Torres)
 ============================= -->
-<button id="basket-btn" onclick="toggleBasket()" aria-label="Ver mi pedido" aria-expanded="false">
+<button type="button" id="basket-btn" onclick="toggleBasket()" aria-label="Ver mi pedido" aria-expanded="false">
   🛒
   <span id="basket-count" aria-label="Artículos en el pedido">0</span>
 </button>
 <div id="basket-panel" role="dialog" aria-label="Mi pedido" aria-hidden="true">
   <div class="basket-title">
     <span>🐉 Mi Pedido</span>
-    <button onclick="toggleBasket()" style="background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:1rem">✕</button>
+    <button type="button" onclick="toggleBasket()" style="background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:1rem">✕</button>
   </div>
   <div class="basket-items" id="basket-items">
     <div class="basket-empty">Tu pedido está vacío.<br>¡Elige tus platos favoritos!</div>
@@ -3263,7 +3304,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 ============================= -->
 <div id="quick-view" onclick="closeQuickView(event)" role="dialog" aria-modal="true" aria-label="Vista rápida del plato">
   <div class="qv-box">
-    <button class="qv-close" onclick="closeQuickViewBtn()" aria-label="Cerrar">✕</button>
+    <button type="button" class="qv-close" onclick="closeQuickViewBtn()" aria-label="Cerrar">✕</button>
     <img class="qv-img img-blur" id="qv-img" src="" alt="" loading="lazy">
     <div class="qv-body">
       <div class="qv-name" id="qv-name"></div>
@@ -3271,7 +3312,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
       <div class="qv-desc" id="qv-desc"></div>
       <div class="qv-tags" id="qv-tags"></div>
       <div class="qv-footer">
-        <button class="btn btn-gold" id="qv-add-btn" style="flex:1">
+        <button type="button" class="btn btn-gold" id="qv-add-btn" style="flex:1">
           <i class="fas fa-plus" aria-hidden="true"></i> Añadir al pedido
         </button>
         <a href="#contacto" class="btn btn-ghost" onclick="closeQuickViewBtn()" style="flex:1;justify-content:center">
@@ -3285,7 +3326,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 <!-- =============================
      AMBIENT SOUND TOGGLE (Test 5 - Anita Kowalski)
 ============================= -->
-<button id="sound-toggle" onclick="toggleAmbient()" title="Música ambiente" aria-label="Activar música ambiente del restaurante" aria-pressed="false">
+<button type="button" id="sound-toggle" onclick="toggleAmbient()" title="Música ambiente" aria-label="Activar música ambiente del restaurante" aria-pressed="false">
   <i class="fas fa-volume-mute" id="sound-icon" aria-hidden="true"></i>
 </button>
 <audio id="ambient-audio" loop preload="none">
@@ -3293,7 +3334,7 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 </audio>
 
 <!-- FLOATING: Back to Top -->
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
+<button type="button" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
   <i class="fas fa-chevron-up" aria-hidden="true"></i>
 </button>
 
@@ -3307,13 +3348,13 @@ body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:rgba(201,150,
 <!-- RESERVATION SUCCESS MODAL -->
 <div class="modal" id="modal" onclick="closeModal(event)">
   <div class="modal-box" role="alertdialog" aria-modal="true" aria-label="Reserva confirmada">
-    <button class="modal-close-btn" onclick="document.getElementById('modal').classList.remove('show')" aria-label="Cerrar">✕</button>
+    <button type="button" class="modal-close-btn" onclick="document.getElementById('modal').classList.remove('show')" aria-label="Cerrar">✕</button>
     <div class="modal-icon" aria-hidden="true">🎉</div>
     <h3>¡Reserva Recibida!</h3>
     <p>Hemos recibido tu solicitud. Te confirmaremos tu reserva en <strong>menos de 2 horas</strong> por teléfono o email. ¡Muchas gracias y hasta pronto!</p>
     <div style="display:flex;gap:0.7rem;justify-content:center;flex-wrap:wrap">
       <a href="https://wa.me/34634567890" target="_blank" rel="noopener" class="btn btn-wa btn-sm"><i class="fab fa-whatsapp" aria-hidden="true"></i> Confirmar por WhatsApp</a>
-      <button class="btn btn-primary btn-sm" onclick="document.getElementById('modal').classList.remove('show')">Perfecto, gracias</button>
+      <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('modal').classList.remove('show')">Perfecto, gracias</button>
     </div>
   </div>
 </div>
